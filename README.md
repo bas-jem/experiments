@@ -86,3 +86,47 @@ Zorg dat `FLORIDAY_TOKEN` gezet is en upload via de web UI of via CLI.
 
 - Deze tool gebruikt `rembg` voor background removal.
 - Het Floriday media endpoint kan per implementatie verschillen; pas `FLORIDAY_MEDIA_ENDPOINT` aan op jouw tenant/API-versie.
+
+## Merge conflicts oplossen
+
+Als je bij mergen/rebasen conflicts krijgt, volg deze stappen:
+
+```bash
+# 1) Haal laatste refs op
+git fetch origin
+
+# 2) Ga naar je feature branch
+git checkout work
+
+# 3) Rebase op target branch (bijv. main)
+git rebase origin/main
+```
+
+Bij conflicts:
+
+```bash
+# Bekijk conflicterende bestanden
+git status
+
+# Los markers op in bestanden (<<<<<<, ======, >>>>>>)
+# Daarna per bestand:
+git add <bestand>
+
+# Ga verder met rebase
+git rebase --continue
+```
+
+Als je wilt stoppen:
+
+```bash
+git rebase --abort
+```
+
+Na een succesvolle rebase:
+
+```bash
+# Force-push met lease (veiligste variant na rebase)
+git push --force-with-lease
+```
+
+Tip: als conflict vooral in `README.md` of tests zit, kies eerst één versie als basis en voeg daarna handmatig de juiste delen samen.
